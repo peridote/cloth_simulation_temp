@@ -1,4 +1,4 @@
-#pratice
+#practice
 
 This is a C++ implementation of "Fast simulation of mass-spring systems"[1] based on PDB Library by janbender[2].
 
