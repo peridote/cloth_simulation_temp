@@ -85,7 +85,7 @@ void TimeStepController::step_liu(SimulationModel& model, Real h)
 	tm->setTimeStepSize(h);
 	for (int i = 0; i < (int)pd.size(); i++)
 	{
-		if(i>=50)
+		if(i !=0 && i !=49)
 			pd.getVelocity(i) += pd.getMass(i)* grav;
 	}
 

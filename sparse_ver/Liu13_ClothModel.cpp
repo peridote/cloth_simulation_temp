@@ -192,7 +192,7 @@ void Liu13_ClothModel::getPositionVector(ParticleData& pd)
 
 void Liu13_ClothModel::setLMatrix()
 {
-	Real k = 1500;
+	Real k = 1;
 	std::vector<Spring> edge = m_springs;
 	std::vector<Triplet> tripletList;
 	m_L.resize(m_pindices.size()*3, m_pindices.size()*3);
@@ -201,7 +201,7 @@ void Liu13_ClothModel::setLMatrix()
 	{
 		unsigned int i1 = edge[i].m_vert[0];
 		unsigned int i2 = edge[i].m_vert[1];
-
+		k = edge[i].coeff;
 		//A.setZero();
 		//A(i1) = 1;
 		//A(i2) = -1;
@@ -240,7 +240,7 @@ void Liu13_ClothModel::setLMatrix()
 
 void Liu13_ClothModel::setJMatrix()
 {
-	Real k = 1500;
+	Real k = 1;
 	std::vector<Spring> edge = m_springs;
 	std::vector<Triplet> tripletList;
 	Eigen::Matrix3d I = Eigen::Matrix3d::Identity();
@@ -249,7 +249,8 @@ void Liu13_ClothModel::setJMatrix()
 	for (unsigned i = 0; i < edge.size(); i++)
 	{
 		unsigned int i1 = edge[i].m_vert[0];
-		unsigned int i2 = edge[i].m_vert[1];		
+		unsigned int i2 = edge[i].m_vert[1];
+		k = edge[i].coeff;
 		//A.setZero();
 		//S.setZero();
 		//A(i1) = 1;
@@ -317,7 +318,7 @@ void Liu13_ClothModel::getForceVector(ParticleData& pd, Real h)
 		m_b(3 * i + 2) = force.z();
 
 	}
-	y = 1.9 * m_X - 0.9 * m_XOld;
+	y = 1.95 * m_X - 0.95 * m_XOld;
 	m_b += m_massMatrix * y;
 	
 	m_XOld = m_X;
